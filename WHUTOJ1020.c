@@ -18,8 +18,13 @@ int main(){
 		year=strtok(input,"/");
 		month=strtok(NULL,"/");
 		day=strtok(NULL,"/");
+		memset(date,0,sizeof(date));
 		strcpy(date,year);
+		if(strlen(month)<2)
+			strcat(date,"0");
 		strcat(date,month);
+		if(strlen(day)<2)
+			strcat(date,"0");
 		strcat(date,day);
 		//puts(date);
 		sscanf(date,"%d",&(p[i].birth));
