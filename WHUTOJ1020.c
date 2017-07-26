@@ -31,8 +31,13 @@ int main(){
 		//printf("%d",p[i].birth);
 		if(p[i].birth>=18140906 && p[i].birth<=20140906)
 			aval++;
-		else
+		else{
+			if(maxp==i)
+				maxp++;
+			if(minp==i)
+				minp++;
 			continue;
+		}
 		if(i)
 			if(p[i].birth<p[maxp].birth)
 				maxp=i;
