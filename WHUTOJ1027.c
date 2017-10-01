@@ -1,48 +1,53 @@
 #include <cstdio>
+#include <cstdlib>
 #include <algorithm>
 using namespace std;
-bool c(int a,int b){
-	return a<b;
+
+bool c(long long a, long long b) {
+	return a < b;
 }
 
-int main(){
-	int s,N,p,mid,maxa,temp,maxn=0;
-	int last=0;
-	scanf("%d %d",&N,&p);
-	int num[N];
-	for(int i=0;i<N;i++)
-		scanf("%d",&num[i]);
-	sort(num,num+N,c);
-	for(int i=0;i<N;i++){
-		mid=(i+N-1)/2;
-		maxa=num[i]*p;
-		s=mid;
-		while(s<N){
-			//printf("%d %d\n",s,maxa);
-			if(num[N-1]<=maxa){
-				s=N-1;
+int main() {
+	long long N, p, begin, end, mid, maxa, temp, maxn = 0;
+	long long last = 0;
+	scanf("%lld %lld", &N, &p);
+	long long num[N];
+	for (long long i = 0; i < N; i++)
+		scanf("%lld", &num[i]);
+	sort(num, num + N, c);
+	for (long long i = 0; i < N; i++) {
+		maxa = num[i] * p;
+		begin = i;
+		end = N - 1;
+		while (begin < end) {
+			mid = (begin + end) / 2;
+			//printf("%d %d %d\n",mid,num[mid],maxa);
+			if (num[N - 1] <= maxa) {
+				mid = N - 1;
 				break;
 			}
-			if(num[s]==maxa){
-				for(;num[s]==maxa;s++);
+			if (num[mid] == maxa) {
+				for (; num[mid] == maxa; mid++);
+				mid--;
 				break;
 			}
-			else if(num[s]<maxa&&num[s+1]>maxa){
+			else if (num[mid]<maxa&&num[mid + 1]>maxa) {
 				break;
 			}
-			else if(num[s]>maxa){
-				s=(i+s)/2;
+			else if (num[mid] > maxa) {
+				end = mid;
 				continue;
 			}
-			else{
-				s=(s+N-1)/2;
+			else {
+				begin = mid + 1;
 				continue;
 			}
 		}
-		temp = s-i;
-		if(temp>maxn)
-			maxn=temp;
+		temp = mid - i + 1;
+		//printf("%lld\n",temp);
+		if (temp > maxn)
+			maxn = temp;
 	}
-	printf("%d\n",maxn);
+	printf("%lld\n", maxn);
 	return 0;
 }
